@@ -16,3 +16,12 @@ RUN mv /tmp/restic/restic /opt/restic/restic
 RUN chmod +x /opt/restic/restic
 RUN chown ${RUN_USER}:${RUN_GROUP} /opt/restic/restic
 RUN rm -rf /tmp/restic
+
+RUN mkdir --parents /backup_target/delivery_data
+RUN mkdir --parents /backup_target/result_data
+RUN mkdir --parents /backup_target/postgres
+RUN mkdir --parents /backup_target/typesense
+RUN mkdir --parents /backup_padding/delivery_data
+RUN mkdir --parents /backup_padding/result_data
+RUN mkdir --parents /backup_padding/postgres
+RUN mkdir --parents /backup_padding/typesense

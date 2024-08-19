@@ -17,11 +17,6 @@ RUN chmod +x /opt/restic/restic
 RUN chown ${RUN_USER}:${RUN_GROUP} /opt/restic/restic
 RUN rm -rf /tmp/restic
 
-RUN mkdir --parents /backup_target/delivery_data
-RUN mkdir --parents /backup_target/result_data
-RUN mkdir --parents /backup_target/postgres
-RUN mkdir --parents /backup_target/typesense
-RUN mkdir --parents /backup_padding/delivery_data
-RUN mkdir --parents /backup_padding/result_data
-RUN mkdir --parents /backup_padding/postgres
-RUN mkdir --parents /backup_padding/typesense
+# NOTE: hier werden lediglich die übergeordneten Verzeichnisse backup_target und backup_padding erstellt. Diese dienen im Docker-Container als Mount-Points für die Kubernetes-PersistentVolumes. Die Unterverzeichnisse (/backup_target/delivery_data, /backup_padding/delivery_data, ...) müssen zur Laufzeit des Docker-Containers (Prefect-Flow) erstellt werden, da erst dann die PVs gemountet sind.
+RUN mkdir --parents /backup_target
+RUN mkdir --parents /backup_padding

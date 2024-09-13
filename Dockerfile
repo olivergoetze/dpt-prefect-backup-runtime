@@ -1,7 +1,5 @@
 FROM prefecthq/prefect:3.0.1-python3.11
 ENV RESTIC_VERSION=0.17.0
-ENV RUN_USER=nobody
-ENV RUN_GROUP=0
 
 # extra pip packages for Dask on Kubernetes and S3
 RUN pip install cloudpathlib[s3] s3fs prefect-dask
@@ -20,3 +18,14 @@ RUN rm -rf /tmp/restic
 # NOTE: hier werden lediglich die übergeordneten Verzeichnisse backup_target und backup_padding erstellt. Diese dienen im Docker-Container als Mount-Points für die Kubernetes-PersistentVolumes. Die Unterverzeichnisse (/backup_target/delivery_data, /backup_padding/delivery_data, ...) müssen zur Laufzeit des Docker-Containers (Prefect-Flow) erstellt werden, da erst dann die PVs gemountet sind.
 RUN mkdir /backup_target
 RUN mkdir /backup_padding
+
+RUN chgrp -R 0 /opt && \
+         chmod -R g=u /opt
+
+RUN chgrp -R 0 /backup_target && \
+         chmod -R g=u /backup_target
+
+RUN chgrp -R 0 /backup_padding && \
+         chmod -R g=u /backup_padding
+
+USER 1001

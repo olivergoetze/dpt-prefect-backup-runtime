@@ -21,6 +21,10 @@ RUN rm -rf /tmp/restic
 RUN mkdir /backup_target
 RUN mkdir /backup_padding
 
+RUN mkdir /.prefect
+RUN chgrp -R 0 /.prefect && \
+         chmod -R g=u /.prefect
+
 RUN chgrp -R 0 /root/.prefect && \
          chmod -R g=u /root/.prefect
 

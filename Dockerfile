@@ -18,23 +18,14 @@ RUN chown ${RUN_USER}:${RUN_GROUP} /opt/restic/restic
 RUN rm -rf /tmp/restic
 
 # NOTE: hier werden lediglich die übergeordneten Verzeichnisse backup_target und backup_padding erstellt. Diese dienen im Docker-Container als Mount-Points für die Kubernetes-PersistentVolumes. Die Unterverzeichnisse (/backup_target/delivery_data, /backup_padding/delivery_data, ...) müssen zur Laufzeit des Docker-Containers (Prefect-Flow) erstellt werden, da erst dann die PVs gemountet sind.
-RUN mkdir /backup_target
-RUN mkdir /backup_padding
+RUN mkdir /opt/backup_target
+RUN mkdir /opt/backup_padding
 
 RUN mkdir /.prefect
 RUN chgrp -R 0 /.prefect && \
          chmod -R g=u /.prefect
 
-RUN chgrp -R 0 /root/.prefect && \
-         chmod -R g=u /root/.prefect
-
 RUN chgrp -R 0 /opt && \
          chmod -R g=u /opt
-
-RUN chgrp -R 0 /backup_target && \
-         chmod -R g=u /backup_target
-
-RUN chgrp -R 0 /backup_padding && \
-         chmod -R g=u /backup_padding
 
 USER 1001

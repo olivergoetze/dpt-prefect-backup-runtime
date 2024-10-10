@@ -20,7 +20,6 @@ RUN rm -rf /tmp/restic
 # NOTE: hier werden lediglich die übergeordneten Verzeichnisse backup_target und backup_padding erstellt. Diese dienen im Docker-Container als Mount-Points für die Kubernetes-PersistentVolumes. Die Unterverzeichnisse (/backup_target/delivery_data, /backup_padding/delivery_data, ...) müssen zur Laufzeit des Docker-Containers (Prefect-Flow) erstellt werden, da erst dann die PVs gemountet sind.
 RUN mkdir /opt/backup_target
 RUN mkdir /opt/backup_padding
-RUN mkdir /opt/backup_padding/restic-tmp
 
 RUN mkdir /.prefect
 RUN chgrp -R 0 /.prefect && \

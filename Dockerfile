@@ -1,4 +1,4 @@
-FROM prefecthq/prefect:3.4.1-python3.11
+FROM prefecthq/prefect:3.4.13-python3.12
 ENV RESTIC_VERSION=0.17.0
 ENV RUN_USER=nobody
 ENV RUN_GROUP=0
